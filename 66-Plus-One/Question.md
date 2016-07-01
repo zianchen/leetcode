@@ -22,4 +22,4 @@ The digits are stored such that the most significant digit is at the head of the
 
 <div id="similar" class="btn btn-xs btn-warning">Show Similar Problems</div>
 
-<span class="hidebutton">[(M) Multiply Strings](/problems/multiply-strings/) [(E) Add Binary](/problems/add-binary/)</span></div>
+<span class="hidebutton">[(M) Multiply Strings](/problems/multiply-strings/) [(E) Add Binary](/problems/add-binary/) [(M) Plus One Linked List](/problems/plus-one-linked-list/)</span></div>

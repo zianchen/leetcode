@@ -17,7 +17,7 @@ public class Solution {
         int countLeft = 1;
         while (r < nums.length) {
             if (nums[r] == nums[r-1]) {
-                if (countLeft < 2) {
+                if (countLeft < k) {
                     nums[l++] = nums[r];
                     countLeft++;
                 }

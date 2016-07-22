@@ -8,21 +8,14 @@ public class Solution extends Reader4 {
      * @return    The number of characters read
      */
     public int read(char[] buf, int n) {
-        int total = 0;
         char[] tmp = new char[4];
-        int count = 0;
-        boolean eof = false;
-        
-        while (!eof && total < n) {
-            count = read4(tmp);
-            
-            eof = count < 4;
-            
-            count = Math.min(count, n - total);
-            for (int i = 0; i < count; i++) {
-                buf[total++] = tmp[i];
+        for (int i = 0; i < n; i += 4) {
+            int len = read4(tmp);
+            System.arraycopy(tmp, 0, buf, i, Math.min(len, n-i));
+            if (len < 4) {
+                return Math.min(i + len, n);   //这里非常tricky，就算len<4(也即文件被读完)，仍有可能这时候n - i < len，比如剩下的n-i只有2个了，然后这时候len读出了3个，这时候i+len仍然是比n大的。
             }
         }
-        return total;
+        return n;
     }
 }

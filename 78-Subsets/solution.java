@@ -5,6 +5,7 @@ public class Solution {
         if (nums == null || nums.length == 0) {
             return res;
         }
+        Arrays.sort(nums);   //要求结果升序排列，所以sort一下。
         List<Integer> tmp = new ArrayList();
         res.add(tmp);
         dfs(nums, tmp, 0);

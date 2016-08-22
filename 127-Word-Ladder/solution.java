@@ -2,7 +2,8 @@ public class Solution {
     
     private Queue<String> toVisit = new LinkedList();
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-        // wordList.add(endWord);
+        // 把endword加进去的原因是这样最后一步做addNextWords的时候才能满足wordList.contains(nextStr)为true，因为最后一步会用log生成cog，如果cog不在wordList里面，那么nextStr就加不进去。
+        wordList.add(endWord);
         int dist = 2;
         addNextWords(beginWord, wordList);
         while (!toVisit.isEmpty()) {
@@ -12,7 +13,7 @@ public class Solution {
                 if (candidate.equals(endWord)) {
                     return dist;
                 }
-                wordList.remove(candidate);
+                // wordList.remove(candidate);
                 addNextWords(candidate, wordList);
             }
             dist++;

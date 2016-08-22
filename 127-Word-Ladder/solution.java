@@ -2,7 +2,7 @@ public class Solution {
     
     private Queue<String> toVisit = new LinkedList();
     public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-        wordList.add(endWord);
+        // wordList.add(endWord);
         int dist = 2;
         addNextWords(beginWord, wordList);
         while (!toVisit.isEmpty()) {

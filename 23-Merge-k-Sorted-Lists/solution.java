@@ -11,40 +11,33 @@ public class Solution {
         if (lists == null || lists.length == 0) {
             return null;
         }
-        int len = lists.length;
-        while (len > 1) {
-            for (int i = 0; i < len / 2; i++) {
-                lists[i] = mergeTwo(lists[i],lists[len - 1 - i]);
+        int end = lists.length - 1;
+        while (end > 0) {
+            int begin = 0;
+            while (begin < end) {
+                lists[begin] = merge2Lists(lists[begin], lists[end]);
+                begin++;
+                end--;
             }
-            len = (len + 1) / 2;
         }
         return lists[0];
     }
     
-    public ListNode mergeTwo(ListNode l1, ListNode l2) {
-        if (l1 == null) {
-            return l2;
-        }
-        if (l2 == null) {
-            return l1;
-        }
-        ListNode dummy = new ListNode(0);
-        ListNode tail = dummy;
+    private ListNode merge2Lists(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = dummyHead;
         while (l1 != null && l2 != null) {
             if (l1.val < l2.val) {
-                tail.next = l1;
+                p.next = l1;
                 l1 = l1.next;
             } else {
-                tail.next = l2;
+                p.next = l2;
                 l2 = l2.next;
             }
-            tail = tail.next;
+            p = p.next;
         }
-        if (l1 != null) {
-            tail.next = l1;
-        } else {
-            tail.next = l2;
-        }
-        return dummy.next;
+        if (l1 != null) p.next = l1;
+        if (l2 != null) p.next = l2;
+        return dummyHead.next;
     }
 }

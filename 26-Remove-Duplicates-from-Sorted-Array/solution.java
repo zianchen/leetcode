@@ -1,21 +1,14 @@
 public class Solution {
+    // 不断地用后面的元素顶上去覆盖duplicate的元素，id记录当前可覆盖的位置
     public int removeDuplicates(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
+        int n = nums.length;
+        if(n < 2) return n;
+        int id = 1;
+        for(int i = 1; i < n; ++i) {
+           if(nums[i] != nums[i-1]) {
+                nums[id++] = nums[i];       
+           }
         }
-        if (nums.length == 1) {
-            return 1;
-        }
-        int l = 1, r = 1, len = nums.length;
-        while (r < nums.length) {
-            if (nums[r] == nums[r-1]) {
-                len--;
-            } else {
-                nums[l] = nums[r];
-                l++;
-            }
-            r++;
-        }
-        return len;
+        return id;
     }
 }

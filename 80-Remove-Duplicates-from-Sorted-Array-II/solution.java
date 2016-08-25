@@ -1,32 +1,27 @@
 public class Solution {
+    // 通用方法  https://discuss.leetcode.com/topic/7673/share-my-o-n-time-and-o-1-solution-when-duplicates-are-allowed-at-most-k-times
     public int removeDuplicates(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
-        }
-        int len = nums.length;
-        if (len == 1) {
-            return 1;
-        }
-        return removeDuplicatesAtMostK(nums, len, 2);
+        return allowK(nums, 2);
     }
-    /*
-    I think both Remove Duplicates from Sorted Array I and II could be solved in a consistent and more general way by allowing the duplicates to appear k times (k = 1 for problem I and k = 2 for problem II).
-    */
-    public int removeDuplicatesAtMostK(int[] nums, int len, int k) {
-        int l = 1, r = 1; 
-        int countLeft = 1;
-        while (r < nums.length) {
-            if (nums[r] == nums[r-1]) {
-                if (countLeft < k) {
-                    nums[l++] = nums[r];
-                    countLeft++;
-                }
-            } else {
-                nums[l++] = nums[r];
-                countLeft = 1;
+    
+    public int allowK (int[] nums, int k) {
+        int n = nums.length;
+        if (n <= k) return n;
+        int update = 1, j = 1;
+        int cnt = 1;
+        while (j < n) {
+            if (nums[j] != nums[j-1]) {
+                cnt = 1;
+                nums[update++] = nums[j];
             }
-            r++;
+            else {
+                if (cnt < k) {
+                    nums[update++] = nums[j];
+                    cnt++;
+                }
+            }
+            ++j;
         }
-        return l;
+        return update;
     }
 }

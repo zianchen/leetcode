@@ -1,28 +1,16 @@
 public class Solution {
+    private Map<Character, Integer> map = new HashMap<Character, Integer>() {{
+        put('I', 1); put('V', 5); put('X', 10);
+        put('L', 50); put('C', 100); put('D', 500);
+        put('M', 1000);
+    }};
     public int romanToInt(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
+        int prev = 0, total = 0;
+        for (char c : s.toCharArray()) {
+        int curr = map.get(c);
+        total += (curr > prev) ? (curr - 2 * prev) : curr;
+        prev = curr;
         }
-        int len = s.length();
-        Map<Character,Integer> map = new HashMap();
-        map.put('I',1);
-        map.put('V',5);
-        map.put('X',10);
-        map.put('L',50);
-        map.put('C',100);
-        map.put('D',500);
-        map.put('M',1000);
-        int result = map.get(s.charAt(len - 1));
-        int pivot = result;
-        for (int i = len - 2; i >= 0; i--) {
-            int curr = map.get(s.charAt(i));
-            if (curr >= pivot) {
-                result += curr;
-            } else {
-                result -= curr;
-            }
-            pivot = curr;
-        }
-        return result;
+        return total;
     }
 }

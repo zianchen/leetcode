@@ -1,23 +1,24 @@
 public class Solution {
-    // 可以背下来的解法   http://blog.csdn.net/u011095253/article/details/9158397
-    private List<List<Integer>> res = new ArrayList<List<Integer>>();
+    private List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> subsets(int[] nums) {
         if (nums == null || nums.length == 0) {
             return res;
         }
-        Arrays.sort(nums);   //要求结果升序排列，所以sort一下。
-        List<Integer> tmp = new ArrayList();
+        Arrays.sort(nums);
+        List<Integer> tmp = new ArrayList<>();
         res.add(tmp);
-        dfs(nums, tmp, 0);
+        helper(tmp, 0, nums);
         return res;
     }
-    
-    public void dfs(int[] nums, List<Integer> tmp, int idx) {
+
+    private void helper(List<Integer> tmp, int idx, int[] nums) {
         for (int i = idx; i < nums.length; i++) {
+//            tmp.add(nums[idx]);  巨型bug,不是nums[idx],而是nums[i]
             tmp.add(nums[i]);
-            res.add(new ArrayList(tmp));
-            dfs(nums, tmp, i+1);
-            tmp.remove(tmp.size() - 1);
+            res.add(new ArrayList<>(tmp));
+//            helper(tmp, idx +1, nums);
+            helper(tmp, i+1, nums);
+            tmp.remove(tmp.size()-1);
         }
     }
 }

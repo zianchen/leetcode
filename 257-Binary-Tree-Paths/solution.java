@@ -8,30 +8,21 @@
  * }
  */
 public class Solution {
-    private List<String> res = new ArrayList(); 
+    List<String> res = new ArrayList<>();
     public List<String> binaryTreePaths(TreeNode root) {
-        if (root == null) {
-            return res;
-        }
-        StringBuilder sb = new StringBuilder();
-        dfs(root, sb);
+        generatePath(root, "");
         return res;
     }
-    
-    public void dfs(TreeNode root, StringBuilder sb) {
-        if (root == null) {
+
+    private void generatePath(TreeNode node, String str) {
+        if (node == null) {
             return;
         }
-        int len = sb.length();
-        sb.append(root.val);
-        if (root.left == null && root.right == null) {
-            res.add(sb.toString());
+        if (node.left == null && node.right == null) {
+            res.add(str + node.val);
+            return;
         }
-        if (sb.length() >= 1) {
-            sb.append("->");    
-        }
-        dfs(root.left, sb);
-        dfs(root.right, sb);
-        sb.setLength(len);
+        generatePath(node.left, str + node.val + "->");
+        generatePath(node.right, str + node.val + "->");
     }
 }

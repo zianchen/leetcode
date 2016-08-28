@@ -7,30 +7,19 @@
  * };
  */
 public class Solution {
-     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        if(node == null) {
+    private Map<Integer, UndirectedGraphNode> map = new HashMap();
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) {
             return null;
         }
-        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
-        Map<UndirectedGraphNode, UndirectedGraphNode> map = 
-                                   new HashMap<UndirectedGraphNode,UndirectedGraphNode>();
-        UndirectedGraphNode newHead = new UndirectedGraphNode(node.label);
-        queue.add(node);
-        map.put(node, newHead);
- 
-        while(!queue.isEmpty()){
-            UndirectedGraphNode curr = queue.poll();
-            List<UndirectedGraphNode> currNeighbors = curr.neighbors; 
- 
-            for(UndirectedGraphNode aNeighbor: currNeighbors){
-                if (!map.containsKey(aNeighbor)){
-                    UndirectedGraphNode copy = new UndirectedGraphNode(aNeighbor.label);
-                    map.put(aNeighbor,copy);
-                    queue.add(aNeighbor);
-                }
-                map.get(curr).neighbors.add(map.get(aNeighbor));
-            }
+        if (map.containsKey(node.label)) {
+            return map.get(node.label);
         }
-        return newHead;
+        UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+        map.put(node.label, newNode);
+        for (UndirectedGraphNode neighbor : node.neighbors) {
+            newNode.neighbors.add(cloneGraph(neighbor));
+        }
+        return newNode;
     }
 }

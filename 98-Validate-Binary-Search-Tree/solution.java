@@ -9,16 +9,19 @@
  */
 public class Solution {
     public boolean isValidBST(TreeNode root) {
-        return validBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
-    }
-    
-    public boolean validBSTHelper(TreeNode node, long min, long max) {
-        if (node == null) {
-            return true;
+       if (root == null) return true;
+        TreeNode prev = null;
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        while (root != null || !stk.isEmpty()) {
+            while (root != null) {
+                stk.push(root);
+                root = root.left;
+            }
+            root = stk.pop();
+            if (prev != null && prev.val >= root.val) return false;
+            prev = root;
+            root = root.right;
         }
-        if (node.val <= min || node.val >= max) {
-            return false;
-        }
-        return validBSTHelper(node.left, min, node.val) && validBSTHelper(node.right, node.val, max);
+        return true;
     }
 }

@@ -10,19 +10,24 @@
 public class Solution {
     List<String> res = new ArrayList<>();
     public List<String> binaryTreePaths(TreeNode root) {
-        generatePath(root, "");
+        StringBuilder sb = new StringBuilder();
+        generatePath(root, sb);
         return res;
     }
 
-    private void generatePath(TreeNode node, String str) {
+    private void generatePath(TreeNode node, StringBuilder sb) {
         if (node == null) {
             return;
         }
+        int len = sb.length();
+        sb.append(node.val);
         if (node.left == null && node.right == null) {
-            res.add(str + node.val);
-            return;
+            res.add(sb.toString());
+            // return; 
         }
-        generatePath(node.left, str + node.val + "->");
-        generatePath(node.right, str + node.val + "->");
+        sb.append("->");
+        generatePath(node.left, sb);
+        generatePath(node.right, sb);
+        sb.setLength(len);
     }
 }

@@ -8,20 +8,20 @@
  * }
  */
 public class Solution {
+    
+    TreeNode prev = null;
     public boolean isValidBST(TreeNode root) {
-       if (root == null) return true;
         TreeNode prev = null;
-        Deque<TreeNode> stk = new ArrayDeque<>();
-        while (root != null || !stk.isEmpty()) {
-            while (root != null) {
-                stk.push(root);
-                root = root.left;
-            }
-            root = stk.pop();
-            if (prev != null && prev.val >= root.val) return false;
-            prev = root;
-            root = root.right;
+        return validHelper(root);
+    }
+
+    private boolean validHelper(TreeNode node) {
+        if (node == null) {
+            return true;
         }
-        return true;
+        if (!validHelper(node.left)) return false;
+        if (prev != null && prev.val >= node.val) return false;
+        prev = node;
+        return validHelper(node.right);
     }
 }
